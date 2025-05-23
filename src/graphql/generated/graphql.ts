@@ -1,0 +1,517 @@
+/* eslint-disable */
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: { input: any; output: any; }
+  /** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSONObject: { input: any; output: any; }
+};
+
+export type AuthResponse = {
+  __typename?: 'AuthResponse';
+  accessToken: Scalars['String']['output'];
+  refreshToken: Scalars['String']['output'];
+  user: User;
+};
+
+export type Course = {
+  __typename?: 'Course';
+  _id: Scalars['ID']['output'];
+  courseName: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  lang: Scalars['String']['output'];
+  lessons?: Maybe<Array<Maybe<Lesson>>>;
+};
+
+export type CreateCourseInput = {
+  courseName: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  lang: Scalars['String']['input'];
+};
+
+export type CreateLessonInput = {
+  course: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  lang: Scalars['String']['input'];
+  lessonCode: Scalars['String']['input'];
+  lessonName: Scalars['String']['input'];
+  order: Scalars['Float']['input'];
+  videoUrl: Scalars['String']['input'];
+};
+
+export type CreateTaskInput = {
+  data?: InputMaybe<Scalars['JSONObject']['input']>;
+  description: Scalars['String']['input'];
+  lessonCode: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+};
+
+export type CreateUserCourseAccessInput = {
+  accessEndDate?: InputMaybe<Scalars['DateTime']['input']>;
+  accessStartDate?: InputMaybe<Scalars['DateTime']['input']>;
+  active?: InputMaybe<Scalars['Boolean']['input']>;
+  comment?: InputMaybe<Scalars['String']['input']>;
+  course: Scalars['ID']['input'];
+  user: Scalars['ID']['input'];
+};
+
+export type CreateUserCourseProgressInput = {
+  completed?: Scalars['Boolean']['input'];
+  /** Дата выполнения */
+  completedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  courseId: Scalars['ID']['input'];
+  /** Оценка или процент выполнения (0–100) */
+  score?: InputMaybe<Scalars['Int']['input']>;
+  userId: Scalars['ID']['input'];
+};
+
+export type CreateUserInput = {
+  password: Scalars['String']['input'];
+  phoneNumber: Scalars['String']['input'];
+  userName: Scalars['String']['input'];
+  userRole: Scalars['String']['input'];
+};
+
+export type CreateUserLessonProgressInput = {
+  completed?: Scalars['Boolean']['input'];
+  /** Дата выполнения */
+  completedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  lessonId: Scalars['ID']['input'];
+  /** Оценка или процент выполнения (0–100) */
+  score?: InputMaybe<Scalars['Int']['input']>;
+  userId: Scalars['ID']['input'];
+};
+
+export type CreateUserTaskProgressInput = {
+  completed?: Scalars['Boolean']['input'];
+  /** Дата выполнения */
+  completedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  courseId: Scalars['ID']['input'];
+  lessonId: Scalars['ID']['input'];
+  /** Оценка или процент выполнения (0–100) */
+  score?: InputMaybe<Scalars['Int']['input']>;
+  taskId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+export type Lesson = {
+  __typename?: 'Lesson';
+  _id: Scalars['ID']['output'];
+  course: Course;
+  description?: Maybe<Scalars['String']['output']>;
+  lang: Scalars['String']['output'];
+  lessonCode: Scalars['String']['output'];
+  lessonName: Scalars['String']['output'];
+  order: Scalars['Float']['output'];
+  tasks?: Maybe<Array<Maybe<Task>>>;
+  videoUrl?: Maybe<Scalars['String']['output']>;
+};
+
+export type LoginInput = {
+  password: Scalars['String']['input'];
+  phoneNumber: Scalars['String']['input'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createCourse: Course;
+  createLesson: Lesson;
+  createTask: Task;
+  createUser: User;
+  createUserCourseAccess: UserCourseAccess;
+  createUserCourseProgress: UserCourseProgress;
+  createUserLessonProgress: UserLessonProgress;
+  createUserTaskProgress: UserTaskProgress;
+  login: AuthResponse;
+  logout: Scalars['Boolean']['output'];
+  refreshTokens: AuthResponse;
+  register: AuthResponse;
+  removeCourseById: Course;
+  removeLessonById: Lesson;
+  removeTaskById: Task;
+  removeUserById: User;
+  removeUserCourseAccess: UserCourseAccess;
+  removeUserCourseProgress: UserCourseProgress;
+  removeUserLessonProgress: UserLessonProgress;
+  removeUserTaskProgress: UserTaskProgress;
+  updateCourseById: Course;
+  updateLessonById: Lesson;
+  updateTaskById: Task;
+  updateUserById: User;
+  updateUserCourseAccess: UserCourseAccess;
+  updateUserCourseProgress: UserCourseProgress;
+  updateUserLessonProgress: UserLessonProgress;
+  updateUserTaskProgress: UserTaskProgress;
+};
+
+
+export type MutationCreateCourseArgs = {
+  createCourseInput: CreateCourseInput;
+};
+
+
+export type MutationCreateLessonArgs = {
+  createLessonInput: CreateLessonInput;
+};
+
+
+export type MutationCreateTaskArgs = {
+  createTaskInput: CreateTaskInput;
+};
+
+
+export type MutationCreateUserArgs = {
+  createUserInput: CreateUserInput;
+};
+
+
+export type MutationCreateUserCourseAccessArgs = {
+  createUserCourseAccessInput: CreateUserCourseAccessInput;
+};
+
+
+export type MutationCreateUserCourseProgressArgs = {
+  createUserCourseProgressInput: CreateUserCourseProgressInput;
+};
+
+
+export type MutationCreateUserLessonProgressArgs = {
+  createUserLessonProgressInput: CreateUserLessonProgressInput;
+};
+
+
+export type MutationCreateUserTaskProgressArgs = {
+  createUserTaskProgressInput: CreateUserTaskProgressInput;
+};
+
+
+export type MutationLoginArgs = {
+  input: LoginInput;
+};
+
+
+export type MutationLogoutArgs = {
+  userId: Scalars['String']['input'];
+};
+
+
+export type MutationRefreshTokensArgs = {
+  input: RefreshInput;
+};
+
+
+export type MutationRegisterArgs = {
+  input: RegisterInput;
+};
+
+
+export type MutationRemoveCourseByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveLessonByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveTaskByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveUserByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveUserCourseAccessArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveUserCourseProgressArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveUserLessonProgressArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveUserTaskProgressArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateCourseByIdArgs = {
+  updateCourseInput: UpdateCourseInput;
+};
+
+
+export type MutationUpdateLessonByIdArgs = {
+  updateLessonInput: UpdateLessonInput;
+};
+
+
+export type MutationUpdateTaskByIdArgs = {
+  updateTaskInput: UpdateTaskInput;
+};
+
+
+export type MutationUpdateUserByIdArgs = {
+  updateUserInput: UpdateUserInput;
+};
+
+
+export type MutationUpdateUserCourseAccessArgs = {
+  updateUserCourseAccessInput: UpdateUserCourseAccessInput;
+};
+
+
+export type MutationUpdateUserCourseProgressArgs = {
+  updateUserCourseProgressInput: UpdateUserCourseProgressInput;
+};
+
+
+export type MutationUpdateUserLessonProgressArgs = {
+  updateUserLessonProgressInput: UpdateUserLessonProgressInput;
+};
+
+
+export type MutationUpdateUserTaskProgressArgs = {
+  updateUserTaskProgressInput: UpdateUserTaskProgressInput;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  getAllTasks: Array<Task>;
+  getCourseById: Course;
+  getCourses: Array<Course>;
+  getLessonById: Lesson;
+  getLessons: Array<Lesson>;
+  getTaskById: Task;
+  getTasksByLesson: Array<Task>;
+  getUserById: User;
+  getUsers: Array<User>;
+  userCourseAccess: UserCourseAccess;
+  userCourseProgress: UserCourseProgress;
+  userLessonProgress: UserLessonProgress;
+  userTaskProgress: UserTaskProgress;
+};
+
+
+export type QueryGetCourseByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryGetLessonByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryGetTaskByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryGetTasksByLessonArgs = {
+  lessonId: Scalars['String']['input'];
+};
+
+
+export type QueryGetUserByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryUserCourseAccessArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryUserCourseProgressArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryUserLessonProgressArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryUserTaskProgressArgs = {
+  id: Scalars['String']['input'];
+};
+
+export type RefreshInput = {
+  refreshToken: Scalars['String']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+export type RegisterInput = {
+  password: Scalars['String']['input'];
+  phoneNumber: Scalars['String']['input'];
+  userName: Scalars['String']['input'];
+  userRole: Scalars['String']['input'];
+};
+
+export type Task = {
+  __typename?: 'Task';
+  _id: Scalars['String']['output'];
+  data: Scalars['JSONObject']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  lessonCode: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+};
+
+export type UpdateCourseInput = {
+  courseName?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+  lang?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateLessonInput = {
+  course?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+  lang?: InputMaybe<Scalars['String']['input']>;
+  lessonCode?: InputMaybe<Scalars['String']['input']>;
+  lessonName?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Scalars['Float']['input']>;
+  videoUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateTaskInput = {
+  data?: InputMaybe<Scalars['JSONObject']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+  lessonCode?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateUserCourseAccessInput = {
+  accessEndDate?: InputMaybe<Scalars['DateTime']['input']>;
+  accessStartDate?: InputMaybe<Scalars['DateTime']['input']>;
+  active?: InputMaybe<Scalars['Boolean']['input']>;
+  comment?: InputMaybe<Scalars['String']['input']>;
+  course?: InputMaybe<Scalars['ID']['input']>;
+  id: Scalars['String']['input'];
+  user?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type UpdateUserCourseProgressInput = {
+  completed?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Дата выполнения */
+  completedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  courseId?: InputMaybe<Scalars['ID']['input']>;
+  id: Scalars['String']['input'];
+  /** Оценка или процент выполнения (0–100) */
+  score?: InputMaybe<Scalars['Int']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type UpdateUserInput = {
+  id: Scalars['String']['input'];
+  password?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  userName?: InputMaybe<Scalars['String']['input']>;
+  userRole?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateUserLessonProgressInput = {
+  completed?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Дата выполнения */
+  completedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id: Scalars['String']['input'];
+  lessonId?: InputMaybe<Scalars['ID']['input']>;
+  /** Оценка или процент выполнения (0–100) */
+  score?: InputMaybe<Scalars['Int']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type UpdateUserTaskProgressInput = {
+  completed?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Дата выполнения */
+  completedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  courseId?: InputMaybe<Scalars['ID']['input']>;
+  id: Scalars['String']['input'];
+  lessonId?: InputMaybe<Scalars['ID']['input']>;
+  /** Оценка или процент выполнения (0–100) */
+  score?: InputMaybe<Scalars['Int']['input']>;
+  taskId?: InputMaybe<Scalars['ID']['input']>;
+  userId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type User = {
+  __typename?: 'User';
+  _id: Scalars['ID']['output'];
+  phoneNumber: Scalars['String']['output'];
+  userName: Scalars['String']['output'];
+  userRole: Scalars['String']['output'];
+};
+
+export type UserCourseAccess = {
+  __typename?: 'UserCourseAccess';
+  _id: Scalars['ID']['output'];
+  /** Дата окончания доступа */
+  accessEndDate?: Maybe<Scalars['DateTime']['output']>;
+  /** Дата начала доступа */
+  accessStartDate?: Maybe<Scalars['DateTime']['output']>;
+  active: Scalars['Boolean']['output'];
+  /** Дополнительные примечания */
+  comment?: Maybe<Scalars['String']['output']>;
+  course: Course;
+  user: User;
+};
+
+export type UserCourseProgress = {
+  __typename?: 'UserCourseProgress';
+  _id: Scalars['ID']['output'];
+  completed: Scalars['Boolean']['output'];
+  /** Дата выполнения */
+  completedAt?: Maybe<Scalars['DateTime']['output']>;
+  course: Course;
+  /** Optional score or percent (0-100) */
+  score?: Maybe<Scalars['Int']['output']>;
+  user: User;
+};
+
+export type UserLessonProgress = {
+  __typename?: 'UserLessonProgress';
+  _id: Scalars['ID']['output'];
+  completed: Scalars['Boolean']['output'];
+  /** Дата выполнения */
+  completedAt?: Maybe<Scalars['DateTime']['output']>;
+  lesson: Lesson;
+  /** Optional score or percent (0-100) */
+  score?: Maybe<Scalars['Int']['output']>;
+  user: User;
+};
+
+export type UserTaskProgress = {
+  __typename?: 'UserTaskProgress';
+  _id: Scalars['ID']['output'];
+  completed: Scalars['Boolean']['output'];
+  /** Дата выполнения */
+  completedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** Optional score or percent (0-100) */
+  score?: Maybe<Scalars['Int']['output']>;
+  task: Task;
+  user: User;
+};
