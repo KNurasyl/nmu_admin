@@ -1,14 +1,11 @@
+import { AppolloClientProvider } from '@/providers/AppolloClientProvider'
+import { SessionGate } from '@/providers/SessionGate'
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Outfit } from 'next/font/google'
 import '../styles/globals.scss'
+import AuthGuard from '@/providers/AuthGuard'
 
-const geistSans = Geist({
-	variable: '--font-geist-sans',
-	subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
+const outfit = Outfit({
 	subsets: ['latin'],
 })
 
@@ -23,11 +20,15 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en'>
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-			>
-				{children}
+		<html lang='ru'>
+			<body className={`${outfit.className}`}>
+				<AppolloClientProvider>
+					<SessionGate>
+						<AuthGuard>
+							{children}
+						</AuthGuard>
+					</SessionGate>
+				</AppolloClientProvider>
 			</body>
 		</html>
 	)
