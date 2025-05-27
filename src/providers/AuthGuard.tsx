@@ -15,7 +15,5 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
 		}
 	}, [user, router])
 
-	if (user === null) return null // пока редирект — ничего не показываем
-
 	return <>{children}</>
 }

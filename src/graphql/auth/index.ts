@@ -6,3 +6,6 @@ export const LOGIN = graphql(
 export const REFRESH_TOKENS = graphql(
 	'mutation RefreshTokens {\n  refreshTokens {\n    accessToken\n    user {\n      _id\n      phoneNumber\n      userName\n      userRole\n    }\n  }\n}'
 )
+export const LOGOUT = graphql(
+	'mutation Logout($userId: String!) {\n  logout(userId: $userId)\n}'
+)
