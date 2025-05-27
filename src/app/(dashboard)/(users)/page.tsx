@@ -1,5 +1,7 @@
+import UserList from '@/components/users/UserList'
+
 const Page = () => {
-	return <div>users page</div>
+	return <UserList />
 }
 
 export default Page
