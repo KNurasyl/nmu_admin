@@ -1,0 +1,8 @@
+query GetUserById($id: String!) {
+	getUserById(id: $id) {
+		_id
+		phoneNumber
+		userName
+		userRole
+	}
+}

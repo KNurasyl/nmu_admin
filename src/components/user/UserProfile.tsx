@@ -1,9 +1,29 @@
+import { Row, Tabs } from 'antd'
+import GeneralInfo from './userTabs/GeneralInfo'
+
 interface IProps {
-  userId: string
+	userId: string
 }
 
-const UserProfile = ({userId}: IProps) => {
-	return <div>UserProfile {userId}</div>
+const UserProfile = ({ userId }: IProps) => {
+	const items = [
+		{
+			label: 'Основная информация',
+			key: 'info',
+			children: <GeneralInfo userId={userId} />,
+		},
+		{
+			label: 'Курсы',
+			key: 'courses',
+			children: <div>Курсы, прикреплённые к пользователю</div>,
+		},
+	]
+
+	return (
+		<Row style={{ height: '100%', width: '100%' }}>
+			<Tabs style={{ width: '100%' }} tabPosition='left' items={items} />
+		</Row>
+	)
 }
 
 export default UserProfile

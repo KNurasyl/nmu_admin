@@ -1,9 +1,11 @@
 import { AppolloClientProvider } from '@/providers/AppolloClientProvider'
+import AuthGuard from '@/providers/AuthGuard'
 import { SessionGate } from '@/providers/SessionGate'
 import type { Metadata } from 'next'
 import { Outfit } from 'next/font/google'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.scss'
-import AuthGuard from '@/providers/AuthGuard'
 
 const outfit = Outfit({
 	subsets: ['latin'],
@@ -22,11 +24,10 @@ export default function RootLayout({
 	return (
 		<html lang='ru'>
 			<body className={`${outfit.className}`}>
+				<ToastContainer position='top-right' autoClose={3000} />
 				<AppolloClientProvider>
 					<SessionGate>
-						<AuthGuard>
-							{children}
-						</AuthGuard>
+						<AuthGuard>{children}</AuthGuard>
 					</SessionGate>
 				</AppolloClientProvider>
 			</body>

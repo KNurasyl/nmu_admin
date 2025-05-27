@@ -4,11 +4,10 @@ import { Breadcrumb, Row } from 'antd'
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
 
-
 const Breadcrumbs = () => {
 	const pathname = usePathname()
 
-		const breadcrumbItems = useMemo(() => {
+	const breadcrumbItems = useMemo(() => {
 		const parts = pathname.split('/').filter(Boolean)
 
 		const routeLabels: Record<string, string> = {
@@ -29,8 +28,8 @@ const Breadcrumbs = () => {
 	}, [pathname])
 	return (
 		<Row style={{ margin: '16px 24px 0' }}>
-					<Breadcrumb items={breadcrumbItems} />
-				</Row>
+			<Breadcrumb items={breadcrumbItems} />
+		</Row>
 	)
 }
 

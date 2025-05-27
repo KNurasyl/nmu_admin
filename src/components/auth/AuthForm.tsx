@@ -4,9 +4,10 @@ import { LOGIN } from '@/graphql/auth'
 import { useAuthStore } from '@/stores/auth.store'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { useMutation } from '@apollo/client'
-import { Button, Col, Form, Input, notification, Row, Spin } from 'antd'
+import { Button, Col, Form, Input, Row, Spin } from 'antd'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 import promo from '../../images/Login_promo.png'
 import logo from '../../images/Logo.png'
 
@@ -16,39 +17,24 @@ interface IFieldValue {
 }
 
 const AuthForm = () => {
-	const [login, { loading }] = useMutation(LOGIN)
+	const [login, { loading }] = useMutation(LOGIN, {
+		onCompleted(data) {
+			setUser(data.login.user)
+			setAccessToken(data.login.accessToken)
+			router.replace('/')
+		},
+		onError() {
+			toast.error('Ошибка авторизации')
+		},
+	})
 
 	const router = useRouter()
 	const { setUser, setAccessToken } = useAuthStore(state => state)
 
 	const onFinish = async (values: IFieldValue) => {
-		try {
-			const { data } = await login({
-				variables: { input: values },
-			})
-			if (data?.login?.user && data.login.accessToken) {
-				setUser(data.login.user)
-				setAccessToken(data.login.accessToken)
-				router.replace('/')
-			} else {
-				notification.error({
-					message: 'Ошибка авторизации',
-					placement: 'topRight',
-				})
-			}
-		} catch (error) {
-			if (error instanceof Error) {
-				notification.error({
-					message: error.message || 'Ошибка авторизации',
-					placement: 'topRight',
-				})
-			} else {
-				notification.error({
-					message: 'Ошибка авторизации',
-					placement: 'topRight',
-				})
-			}
-		}
+		await login({
+			variables: { input: values },
+		})
 	}
 
 	return (
