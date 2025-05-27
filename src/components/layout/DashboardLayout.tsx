@@ -24,6 +24,7 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import logo from '../../images/Logo.png'
+import Breadcrumbs from '../ui/Breadcrumb'
 
 const { Header, Sider, Content } = Layout
 
@@ -75,7 +76,6 @@ const DashboardLayout = ({
 			try {
 				await logoutMutation({ variables: { userId: user?._id } })
 				setUser(null)
-				// setAccessToken(null) если есть
 				router.replace('/auth')
 			} catch {
 				notification.error({
@@ -134,6 +134,7 @@ const DashboardLayout = ({
 						{user?.userName}
 					</Dropdown.Button>
 				</Header>
+				<Breadcrumbs />
 				<Content
 					style={{
 						margin: '24px 16px',
