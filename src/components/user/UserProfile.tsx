@@ -1,5 +1,8 @@
+'use client'
+
 import { Row, Tabs } from 'antd'
 import GeneralInfo from './userTabs/GeneralInfo'
+import UserCourses from './userTabs/UserCourses'
 
 interface IProps {
 	userId: string
@@ -15,7 +18,7 @@ const UserProfile = ({ userId }: IProps) => {
 		{
 			label: 'Курсы',
 			key: 'courses',
-			children: <div>Курсы, прикреплённые к пользователю</div>,
+			children: <UserCourses userId={userId} />,
 		},
 	]
 

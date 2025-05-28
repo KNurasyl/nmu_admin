@@ -17,9 +17,11 @@ type Documents = {
     "mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    accessToken\n    user {\n      _id\n      phoneNumber\n      userName\n      userRole\n    }\n  }\n}": typeof types.LoginDocument,
     "mutation Logout($userId: String!) {\n  logout(userId: $userId)\n}": typeof types.LogoutDocument,
     "mutation RefreshTokens {\n  refreshTokens {\n    accessToken\n    user {\n      _id\n      phoneNumber\n      userName\n      userRole\n    }\n  }\n}": typeof types.RefreshTokensDocument,
+    "query GetCourses {\n  getCourses {\n    _id\n    courseName\n    description\n    lang\n  }\n}": typeof types.GetCoursesDocument,
+    "mutation CreateUserCourseAccess($input: CreateUserCourseAccessInput!) {\n  createUserCourseAccess(createUserCourseAccessInput: $input) {\n    _id\n    accessStartDate\n    accessEndDate\n    active\n    comment\n  }\n}": typeof types.CreateUserCourseAccessDocument,
+    "query GetUserById($id: String!) {\n  getUserById(id: $id) {\n    _id\n    phoneNumber\n    userName\n    userRole\n    courseAccesses {\n      _id\n      accessEndDate\n      accessStartDate\n      active\n      comment\n      course {\n        _id\n        courseName\n        description\n        lang\n      }\n    }\n  }\n}": typeof types.GetUserByIdDocument,
     "query GetUsersPaginated($args: UserListArgs!) {\n  getUsersPaginated(args: $args) {\n    total\n    users {\n      _id\n      phoneNumber\n      userName\n      userRole\n    }\n  }\n}": typeof types.GetUsersPaginatedDocument,
     "query GetUsers {\n  getUsers {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}": typeof types.GetUsersDocument,
-    "query GetUserById($id: String!) {\n  getUserById(id: $id) {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}": typeof types.GetUserByIdDocument,
     "mutation UpdateUserById($input: UpdateUserInput!) {\n  updateUserById(updateUserInput: $input) {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}": typeof types.UpdateUserByIdDocument,
     "mutation UpdateUserPassword($input: UpdatePasswordInput!) {\n  updateUserPassword(updatePasswordInput: $input) {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}": typeof types.UpdateUserPasswordDocument,
 };
@@ -27,9 +29,11 @@ const documents: Documents = {
     "mutation Login($input: LoginInput!) {\n  login(input: $input) {\n    accessToken\n    user {\n      _id\n      phoneNumber\n      userName\n      userRole\n    }\n  }\n}": types.LoginDocument,
     "mutation Logout($userId: String!) {\n  logout(userId: $userId)\n}": types.LogoutDocument,
     "mutation RefreshTokens {\n  refreshTokens {\n    accessToken\n    user {\n      _id\n      phoneNumber\n      userName\n      userRole\n    }\n  }\n}": types.RefreshTokensDocument,
+    "query GetCourses {\n  getCourses {\n    _id\n    courseName\n    description\n    lang\n  }\n}": types.GetCoursesDocument,
+    "mutation CreateUserCourseAccess($input: CreateUserCourseAccessInput!) {\n  createUserCourseAccess(createUserCourseAccessInput: $input) {\n    _id\n    accessStartDate\n    accessEndDate\n    active\n    comment\n  }\n}": types.CreateUserCourseAccessDocument,
+    "query GetUserById($id: String!) {\n  getUserById(id: $id) {\n    _id\n    phoneNumber\n    userName\n    userRole\n    courseAccesses {\n      _id\n      accessEndDate\n      accessStartDate\n      active\n      comment\n      course {\n        _id\n        courseName\n        description\n        lang\n      }\n    }\n  }\n}": types.GetUserByIdDocument,
     "query GetUsersPaginated($args: UserListArgs!) {\n  getUsersPaginated(args: $args) {\n    total\n    users {\n      _id\n      phoneNumber\n      userName\n      userRole\n    }\n  }\n}": types.GetUsersPaginatedDocument,
     "query GetUsers {\n  getUsers {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}": types.GetUsersDocument,
-    "query GetUserById($id: String!) {\n  getUserById(id: $id) {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}": types.GetUserByIdDocument,
     "mutation UpdateUserById($input: UpdateUserInput!) {\n  updateUserById(updateUserInput: $input) {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}": types.UpdateUserByIdDocument,
     "mutation UpdateUserPassword($input: UpdatePasswordInput!) {\n  updateUserPassword(updatePasswordInput: $input) {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}": types.UpdateUserPasswordDocument,
 };
@@ -63,15 +67,23 @@ export function graphql(source: "mutation RefreshTokens {\n  refreshTokens {\n  
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "query GetCourses {\n  getCourses {\n    _id\n    courseName\n    description\n    lang\n  }\n}"): (typeof documents)["query GetCourses {\n  getCourses {\n    _id\n    courseName\n    description\n    lang\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation CreateUserCourseAccess($input: CreateUserCourseAccessInput!) {\n  createUserCourseAccess(createUserCourseAccessInput: $input) {\n    _id\n    accessStartDate\n    accessEndDate\n    active\n    comment\n  }\n}"): (typeof documents)["mutation CreateUserCourseAccess($input: CreateUserCourseAccessInput!) {\n  createUserCourseAccess(createUserCourseAccessInput: $input) {\n    _id\n    accessStartDate\n    accessEndDate\n    active\n    comment\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query GetUserById($id: String!) {\n  getUserById(id: $id) {\n    _id\n    phoneNumber\n    userName\n    userRole\n    courseAccesses {\n      _id\n      accessEndDate\n      accessStartDate\n      active\n      comment\n      course {\n        _id\n        courseName\n        description\n        lang\n      }\n    }\n  }\n}"): (typeof documents)["query GetUserById($id: String!) {\n  getUserById(id: $id) {\n    _id\n    phoneNumber\n    userName\n    userRole\n    courseAccesses {\n      _id\n      accessEndDate\n      accessStartDate\n      active\n      comment\n      course {\n        _id\n        courseName\n        description\n        lang\n      }\n    }\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "query GetUsersPaginated($args: UserListArgs!) {\n  getUsersPaginated(args: $args) {\n    total\n    users {\n      _id\n      phoneNumber\n      userName\n      userRole\n    }\n  }\n}"): (typeof documents)["query GetUsersPaginated($args: UserListArgs!) {\n  getUsersPaginated(args: $args) {\n    total\n    users {\n      _id\n      phoneNumber\n      userName\n      userRole\n    }\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query GetUsers {\n  getUsers {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}"): (typeof documents)["query GetUsers {\n  getUsers {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "query GetUserById($id: String!) {\n  getUserById(id: $id) {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}"): (typeof documents)["query GetUserById($id: String!) {\n  getUserById(id: $id) {\n    _id\n    phoneNumber\n    userName\n    userRole\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

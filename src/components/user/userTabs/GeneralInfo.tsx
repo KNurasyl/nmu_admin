@@ -1,6 +1,6 @@
 'use client'
 
-import { GetUserByIdQuery } from '@/graphql/generated/graphql'
+import { GetUserByIdQuery, User } from '@/graphql/generated/graphql'
 import { GET_USER_BY_ID } from '@/graphql/user'
 import { useAuthStore } from '@/stores/auth.store'
 import { useQuery } from '@apollo/client'
@@ -37,13 +37,26 @@ const GeneralInfo = ({ userId }: IProps) => {
 
 	const items = user
 		? [
-				...Object.entries(user)
-					.filter(([key]) => key !== '__typename')
-					.map(([key, value]) => ({
-						key,
-						label: FIELD_LABELS[key] || key,
-						children: value ?? '—',
-					})),
+				{
+					key: '_id',
+					label: FIELD_LABELS._id,
+					children: user._id,
+				},
+				{
+					key: 'userName',
+					label: FIELD_LABELS.userName,
+					children: user.userName,
+				},
+				{
+					key: 'userRole',
+					label: FIELD_LABELS.userRole,
+					children: user.userRole,
+				},
+				{
+					key: 'phoneNumber',
+					label: FIELD_LABELS.phoneNumber,
+					children: user.phoneNumber,
+				},
 				{
 					key: 'password',
 					label: 'Пароль',
@@ -65,7 +78,7 @@ const GeneralInfo = ({ userId }: IProps) => {
 			<UserEditModal
 				open={editOpen}
 				onClose={() => setEditOpen(false)}
-				user={user}
+				user={user as User}
 			/>
 			<UserPasswordModal
 				open={passOpen}

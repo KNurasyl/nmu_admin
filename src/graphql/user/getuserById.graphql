@@ -4,5 +4,18 @@ query GetUserById($id: String!) {
 		phoneNumber
 		userName
 		userRole
+		courseAccesses {
+			_id
+			accessEndDate
+			accessStartDate
+			active
+			comment
+			course {
+				_id
+				courseName
+				description
+				lang
+			}
+		}
 	}
 }
